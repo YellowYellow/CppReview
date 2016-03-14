@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ErrorType>
+  <pointer>1</pointer> 
+  <num>1</num>
+  <array>1</array>
+  <iter>1</iter>
+  <earse>1</earse>
+  <struct>1</struct>
+  <constnull>1</constnull>
+  <vastart>1</vastart> 
+  <map>1</map>
+  <format>1</format>
+</ErrorType>
