@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing; 
-using System.Text;  
+using System.Drawing;
+using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -15,32 +15,25 @@ using CCWin;
 namespace CheckReview
 {
     public partial class Form1 : CCSkinMain
-    { 
+    {
         public NewListView listview1;       //指针没检查list
         public NewListView listview2;       //循环没保护list
-        public NewListView listview3;       //硬编码list 
+        public NewListView listview3;       //硬编码list
         public NewListView listview4;       //对象可能泄露list
         public NewListView listview5;       //数组没保护list
         public NewListView listview6;       //迭代器没保护list
         public NewListView listview7;       //打印字符格式核对
 
-        public NewListView javaErrorList1;  //对象没保护list
-        public NewListView javaErrorList2;  //流关闭不规范list
-        public NewListView javaErrorList3;  //数组没保护list
-        public NewListView javaErrorList4;  //硬编码list
-
-        public List<NewListView> errorTypeForCpp = new List<NewListView>();
-        public List<NewListView> errorTypeForJava = new List<NewListView>();
-        public List<Dictionary<string, string>> version = new List<Dictionary<string, string>>(); 
+        public List<NewListView> errorTypeForCpp = new List<NewListView>();  
         public Dictionary<string,ToolStripMenuItem> MenuItem;
-        public Thread main; 
+        public Thread main;
         public Label filenum;
         public System.Windows.Forms.Timer timer;
-        public ProgressBar progress; 
+        public ProgressBar progress;
         public int flag = 0;
         public int FileNum = 0;
         public Flags flags = new Flags();
-        public ComboBox game_version = new ComboBox(); 
+        public ComboBox game_version = new ComboBox();
         public static string GameName;
         public static string GameVersion;
 
@@ -59,7 +52,7 @@ namespace CheckReview
             public int constnullFlag = 0;
             public int structFlag = 0;
             public int earseFlag = 0;
- 
+
 
             public int dbFlag = 0;
         }
@@ -70,23 +63,23 @@ namespace CheckReview
 
         public Form1()
         {
-            InitializeComponent(); 
+            InitializeComponent();
             loadXml();
             UIinit();
-            tabInit(); 
+            tabInit();
         }
 
         public void loadXml()
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load("./res/ErrorForCpp.xml"); //加载xml文件 
+            xmlDoc.Load("./res/ErrorForCpp.xml"); //加载xml文件
 
             XmlNodeList nodeList = xmlDoc.SelectSingleNode("ErrorType").ChildNodes;
 
-            //遍历所有子节点 
+            //遍历所有子节点
             foreach (XmlNode xn in nodeList)
             {
-                XmlElement xe = (XmlElement)xn; //将子节点类型转换为XmlElement类型 
+                XmlElement xe = (XmlElement)xn; //将子节点类型转换为XmlElement类型
                 if (xe.Name == "pointer")
                 {
                     if (xe.InnerText == "1") { flags.pointerFlag = 1; }
@@ -116,7 +109,7 @@ namespace CheckReview
                 {
                     if (xe.InnerText == "1") { flags.iterFlag = 1; }
                     else { flags.iterFlag = 0; }
-                } 
+                }
                 if (xe.Name == "format")
                 {
                     if (xe.InnerText == "1") { flags.formatFlag = 1; }
@@ -151,42 +144,42 @@ namespace CheckReview
                 {
                     if (xe.InnerText == "1") { flags.sprintfFlag = 1; }
                     else { flags.sprintfFlag = 0; }
-                } 
-            }  
+                }
+            }
         }
 
         //UI初始化
         public void UIinit()
-        { 
+        {
             listview1 = this.newListView1;
             listview1.View = View.Details;
             listview2 = this.newListView2;
             listview2.View = View.Details;
             listview3 = this.newListView3;
-            listview3.View = View.Details; 
+            listview3.View = View.Details;
             listview4 = this.newListView4;
             listview4.View = View.Details;
             listview5 = this.newListView5;
-            listview5.View = View.Details; 
+            listview5.View = View.Details;
             listview6 = this.newListView6;
             listview6.View = View.Details;
             listview7 = this.newListView7;
             listview7.View = View.Details;
             errorTypeForCpp.Add(listview1);
             errorTypeForCpp.Add(listview2);
-            errorTypeForCpp.Add(listview3); 
+            errorTypeForCpp.Add(listview3);
             errorTypeForCpp.Add(listview4);
             errorTypeForCpp.Add(listview5);
             errorTypeForCpp.Add(listview6);
-            errorTypeForCpp.Add(listview7); 
+            errorTypeForCpp.Add(listview7);
             timer = this.timer1;
             filenum = this.label1;
             progress = this.progressBar;
             BackThread.ui = this;
             BackThread.progress = this.progress;
-            BackThread.timer = this.timer; 
+            BackThread.timer = this.timer;
 
-          
+
         }
 
         public void tabInit()
@@ -204,9 +197,9 @@ namespace CheckReview
             if (flags.iterFlag == 1) { tabPage7.Parent = tabControl1; }
             else { tabPage7.Parent = null; }
             if (flags.formatFlag == 1) { tabPage7.Parent = tabControl1; }
-            else { tabPage7.Parent = null; } 
+            else { tabPage7.Parent = null; }
         }
-         
+
         //窗体程序退出
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -254,7 +247,7 @@ namespace CheckReview
                 this.ui.Invoke(new VoidDelegate(delegate()
                 {
                     FileNum = 0;
-                })); 
+                }));
                 GetFilesNum(foldDir);
                 this.ui.Invoke(new VoidDelegate(delegate()
                 {
@@ -300,12 +293,12 @@ namespace CheckReview
                     {
                         CheckLittle(filenames[i], foldDir.Length);
                     }
-                } 
+                }
             }
 
             //获得文件夹内文件的总个数
             private void GetFilesNum(string fileDir)
-            { 
+            {
                 Regex FileType;
                 if (languageType == "C++")
                 { FileType = Cppfile; }
@@ -320,14 +313,14 @@ namespace CheckReview
                             this.ui.Invoke(new VoidDelegate(delegate()
                             {
                                 FileNum++;
-                            })); 
+                            }));
                         }
                     }
                     else
                     {
                         GetFilesNum(filenames[i]);
                     }
-                } 
+                }
             }
 
             public void CheckLittle(string File,int length)
@@ -374,7 +367,7 @@ namespace CheckReview
                 }
             }
         }
-      
+
         //点击某项 根据路径打开某文件
         private void openfile(object sender, MouseEventArgs e)
         {
@@ -383,18 +376,11 @@ namespace CheckReview
 
 
             System.Diagnostics.Process.Start(sele.SubItems[2].Text);
-            
+
             SendKeys.Send("^g");
-            SendKeys.Send(sele.SubItems[0].Text.Substring(0, sele.SubItems[0].Text.Length - 1)); 
-            SendKeys.Send("{ENTER}"); 
-        }
-
-        private void openjavafile(object sender, MouseEventArgs e)
-        {
-            string temp = (sender as NewListView).Name.Substring((sender as NewListView).Name.Length - 1);
-            System.Diagnostics.Process.Start(errorTypeForJava.ToArray()[(int.Parse(temp)-1)].SelectedItems[0].SubItems[2].Text);
-
-        }
+            SendKeys.Send(sele.SubItems[0].Text.Substring(0, sele.SubItems[0].Text.Length - 1));
+            SendKeys.Send("{ENTER}");
+        } 
 
         private void 错误类型ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -404,19 +390,19 @@ namespace CheckReview
 
         private void 审核ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
                 FolderBrowserDialog dialog = new FolderBrowserDialog();
                 dialog.Description = "请选择文件路径";
                 if (dialog.ShowDialog() == DialogResult.OK)
-                { 
+                {
                     this.listview7.Items.Clear();
                     this.listview1.Items.Clear();
                     this.listview2.Items.Clear();
-                    this.listview3.Items.Clear(); 
+                    this.listview3.Items.Clear();
                     this.listview5.Items.Clear();
                     this.listview6.Items.Clear();
-                    BackThread.foldDir = dialog.SelectedPath; 
-                    BackThread.languageType = "C++";  
+                    BackThread.foldDir = dialog.SelectedPath;
+                    BackThread.languageType = "C++";
                     FileNum = 0;
                     progress.Value = 0;
                     progress.Minimum = 0;
@@ -428,7 +414,7 @@ namespace CheckReview
                     审核ToolStripMenuItem.Enabled = false;
                     停止ToolStripMenuItem.Enabled = true;
                     继续ToolStripMenuItem.Enabled = false;
- 
+
                 }
             //}
             //else { MessageBox.Show("请先选择游戏名和版本号"); }
@@ -459,12 +445,11 @@ namespace CheckReview
             {
                 main.Abort();
                 timer.Enabled = false;
-                BackThread.FileNum = 0;
-                this.javaErrorList1.Items.Clear();
+                BackThread.FileNum = 0; 
                 this.listview7.Items.Clear();
                 this.listview1.Items.Clear();
                 this.listview2.Items.Clear();
-                this.listview3.Items.Clear(); 
+                this.listview3.Items.Clear();
                 this.listview5.Items.Clear();
                 this.listview6.Items.Clear();
                 flag = 0;
@@ -476,20 +461,19 @@ namespace CheckReview
         }
 
         private void 清空ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.javaErrorList1.Items.Clear();
+        { 
             this.listview7.Items.Clear();
             this.listview1.Items.Clear();
             this.listview2.Items.Clear();
-            this.listview3.Items.Clear();  
+            this.listview3.Items.Clear();
             this.listview5.Items.Clear();
-            this.listview6.Items.Clear(); 
+            this.listview6.Items.Clear();
         }
-        
- 
-  
-  
- 
+
+
+
+
+
 
         //private void 输入目录远程审核ToolStripMenuItem_Click(object sender, EventArgs e)
         //{
