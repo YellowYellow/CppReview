@@ -16,7 +16,7 @@ namespace CheckReview.StateForCpp
         //确定迭代器是否被保护
         public bool IsIterIsJudge(string strRead)
         {
-            IteratorIsChecked = new Regex(@"(if|while|for)[\s]*(.*" + @TempIter);
+            IteratorIsChecked = new Regex(@"(if|while|for)[\s]*[(](.*)" + @TempIter);
             if (IteratorIsChecked.IsMatch(strRead))
             {
                 return true;

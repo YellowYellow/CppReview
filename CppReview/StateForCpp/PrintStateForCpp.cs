@@ -34,35 +34,7 @@ namespace CheckReview.StateForCpp
                     ui.listview1.Items.Add(lvi);
                 }));
                 Back();
-            }
-            else if (type == 2)
-            {
-                int row = now - 1;
- 
-                lvi = new ListViewItem();
-                lvi.Text = now.ToString() + "行";
-                lvi.SubItems.Add("for或while循环没有保护");
-                lvi.SubItems.Add(filename);
-                lvi.SubItems.Add(strRead[row]);
-                ui.Invoke(new VoidDelegate(delegate()
-                {
-                    ui.listview2.Items.Add(lvi);
-                }));
-            }
-            else if (type == 3)
-            {
-                int row = now - 1;
- 
-                lvi = new ListViewItem();
-                lvi.Text = now.ToString() + "行"; 
-                lvi.SubItems.Add("对象可能没使用场景ID来创建(不确定)");
-                lvi.SubItems.Add(filename);
-                lvi.SubItems.Add(strRead[row]);
-                ui.Invoke(new VoidDelegate(delegate()
-                {
-                    ui.listview3.Items.Add(lvi);
-                }));
-            }
+            }  
             //else if (type == 4)
             //{
             //    int row = now - 1;
@@ -168,21 +140,7 @@ namespace CheckReview.StateForCpp
                     ui.listview7.Items.Add(lvi);
                 }));
                 Back();
-            }
-            else if (type == 11)
-            {
-                int row = now - 1;
- 
-                lvi = new ListViewItem();
-                lvi.Text = row.ToString() + "行";
-                lvi.SubItems.Add("请替换为Safesprintf或Safeswprintf");
-                lvi.SubItems.Add(filename);
-                lvi.SubItems.Add(strRead[row]);
-                ui.Invoke(new VoidDelegate(delegate()
-                {
-                    ui.listview7.Items.Add(lvi);
-                }));
-            }
+            } 
             else if (type == 12)
             {
                 int row = TempRow + 1;
@@ -295,21 +253,7 @@ namespace CheckReview.StateForCpp
                 {
                     ui.listview7.Items.Add(lvi);
                 }));
-            }
-            else if (type == 20)
-            {
-                int row = TempRow + 1;
- 
-                lvi = new ListViewItem();
-                lvi.Text = row.ToString() + "行";
-                lvi.SubItems.Add("在游戏过程中使用new或malloc等底层接口");
-                lvi.SubItems.Add(filename);
-                lvi.SubItems.Add(strRead[TempRow]);
-                ui.Invoke(new VoidDelegate(delegate()
-                {
-                    ui.listview7.Items.Add(lvi);
-                }));
-            }
+            } 
             else if (type == 21)
             {
                 int row = TempRow + 1;

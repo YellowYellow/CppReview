@@ -269,7 +269,7 @@ namespace CheckReview
                         {
                             try
                             {
-                                FileStream aFile = new FileStream(filenames[i], FileMode.Open);
+                                FileStream aFile = new FileStream(filenames[i], FileMode.Open, FileAccess.Read);
                                 StreamReader sr = new StreamReader(aFile, Encoding.GetEncoding("gb2312"));
 
                                 Solution solution = new Solution();
@@ -340,7 +340,7 @@ namespace CheckReview
                         {
                             try
                             {
-                                FileStream aFile = new FileStream(filenames[i], FileMode.Open);
+                                FileStream aFile = new FileStream(filenames[i], FileMode.Open, FileAccess.Read);
                                 StreamReader sr = new StreamReader(aFile, Encoding.GetEncoding("gb2312"));
 
                                 Solution solution = new Solution();

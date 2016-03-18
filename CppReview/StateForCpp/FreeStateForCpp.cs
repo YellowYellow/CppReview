@@ -14,7 +14,6 @@ namespace CheckReview.StateForCpp
             this.so = so;
             ui = form1;
             now = 0;
-            LoopCheckFlag = 0;
             WorkEnterFlag = 0;
             Iswork = 0;
             TempIswork = 0;
@@ -23,8 +22,6 @@ namespace CheckReview.StateForCpp
             TempArray = "";
             TempIter = "";
             TempIsworkStartRow = 0;
-            TempStringValIndex = "";
-            TempStringValvar = "";
             TempMapvar = "";
             TempStruct = "";
         }
@@ -97,11 +94,15 @@ namespace CheckReview.StateForCpp
         public String getStructVar(string Struct)
         {
             string[] temp = Struct.Split(' ');
-            Regex str = new Regex("[A-Za-z_]+");
-            Match mc;
-            mc = str.Match(temp[1]);
-            return mc.Value.Trim();
-        }
+            if (temp.Length >= 2)
+            {
+                Regex str = new Regex("[A-Za-z_]+");
+                Match mc;
+                mc = str.Match(temp[1]);
+                return mc.Value.Trim();
+            }
+            else { return ""; }
 
+        }
     }
 }

@@ -59,12 +59,8 @@ namespace CheckReview
         public static string TempArray;
         public static string TempIter;
         public static int TempIswork;
-        public static int WorkEnterFlag;
-        public static string TempStringValvar;
-        public static string TempStream;
-        public static int LoopCheckFlag;
-        public static int SBraceFlag;
-        public static string TempStringValIndex;
+        public static int WorkEnterFlag; 
+        public static int SBraceFlag; 
         public static string TempMapvar;
         public static string TempStruct;
         public static int filelength;
@@ -82,10 +78,7 @@ namespace CheckReview
         public static Regex IF = new Regex(@"[\s]+(if)[\s]*"); 
         public static Regex ArrayMaybeOutOfIndex = new Regex(@"[a-zA-Z]+\[[a-hk-z0-9][a-zA-Z]*\]");
         public static Regex ArrayMaybeOutOfIndexOthers = new Regex(@"len|index|size|Index|Size|Len");
-        public static Regex MagicNum = new Regex(@"[1-9][0-9]+");
-        //public static Regex route = new Regex(@"(FsGame|FsAuctionLogic|FsVoiceLogic|FsSnsLogic|FsDumpLogic|FsRoomLogic|FsPublogic|FsPlatformLogic|fm_fmod|fm_game|fm_gui|fm_main|fm_movie_m|fm_snaileditor|fm_stublogic|fm_tool|fm_ui3d|utils|define|public).*");
-        public static Regex Jroute = new Regex(@"(DSG-Robot|Room-Fight|Room-Manage|RPG-Common|RPG-Fight|RPG-Game|RPG-Gate|RPG-Mail|RPG-Patch).*");
- 
+        public static Regex MagicNum = new Regex(@"[1-9][0-9]+"); 
 
 
         //大括号的判断
@@ -140,15 +133,7 @@ namespace CheckReview
         public string GetRoute(string file)
         { 
             return file.Substring(filelength); 
-        }
-
-        //获得正确的路径
-        public string JGetRoute(string file)
-        {
-            Match rou;
-            rou = Jroute.Match(file);
-            return rou.Value.Trim();
-        }
+        } 
 
         public abstract void Process();
 

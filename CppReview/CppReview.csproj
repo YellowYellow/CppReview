@@ -88,13 +88,11 @@
     <Compile Include="StateForCpp\ArrayOutofIndexCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\BigNotesStateForCpp.cs" />
     <Compile Include="StateForCpp\DivisionStateForCpp.cs" />
-    <Compile Include="StateForCpp\FormatCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\FreeStateForCpp.cs" />
     <Compile Include="StateForCpp\IteraterCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\MapCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\PointerJudgeStateForCpp.cs" />
     <Compile Include="StateForCpp\PrintStateForCpp.cs" />
-    <Compile Include="StateForCpp\StringValvarStateForCpp.cs" />
     <Compile Include="StateForCpp\StructCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\SwitchCheckStateForCpp.cs" />
     <Compile Include="StateForCpp\VaCheckStateForCpp.cs" />
